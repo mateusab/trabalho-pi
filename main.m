@@ -11,6 +11,6 @@ clc
 I = imread('img1.jpg');
 
 % Transforma a imagem em preto e branco
-level = graythresh(I); %define um nível de cinza melhor de acordo com a imagem
+level = graythresh(I);
 bw = (im2bw(I, level));
 figure, imshow(bw);
