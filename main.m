@@ -10,7 +10,7 @@ close all
 clc
 
 % % Carregando a imagem
-I = imread('img4.jpg');
+I = imread('img2.jpg');
 figure, imshow(I), title('Imagem original');
 
 % BINARIZAÇÃO
@@ -89,3 +89,13 @@ if (qtd_regioes == 2)
         fprintf('NOT GOAL!');
     end
 end
+
+% No caso de possuir apenas uma região, temos mais duas derivações
+% O primeiro caso, onde a bola está minimamente em cima da linha e pode ser gol ainda
+% O segundo caso onde a bola está muito em cima da linha e realmente não
+% foi gol
+
+if (qtd_regioes == 1)
+    fprintf('Possui apenas uma região!');
+end
+
