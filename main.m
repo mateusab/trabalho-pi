@@ -10,7 +10,7 @@ close all
 clc
 
 % % Carregando a imagem
-I = imread('img2.jpg');
+I = imread('img1.jpg');
 figure, imshow(I), title('Imagem original');
 
 % BINARIZAÇÃO
@@ -24,7 +24,7 @@ figure, imshow(preenchida);
 % IMFINDCIRCLES
 % Essa função irá retornar o raio e o centro (x,y) do círculo encontrado
 % Optamos por circulos claros, pois a bola é branca e o raio entre 60 e 100
-[centers,radii] = imfindcircles(I,[60 100], 'ObjectPolarity','bright','Sensitivity',0.92);
+[centers,radii] = imfindcircles(I,[60 100], 'ObjectPolarity','bright','Sensitivity',0.96);
 bola_perim = viscircles(centers, radii,'Color','r');
 
 % CRIAÇÃO DE MÁSCARA
@@ -69,6 +69,7 @@ qtd_regioes = max(max(rotulada));
 % circularidade
 
 if (qtd_regioes == 2)
+    fprintf('duas regioes');
     dados = regionprops(croppedImage,'Area','Centroid','Perimeter');
     tam_fonte = 12;
     circularidade = 1:2;
@@ -98,4 +99,3 @@ end
 if (qtd_regioes == 1)
     fprintf('Possui apenas uma região!');
 end
-
