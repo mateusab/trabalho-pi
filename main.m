@@ -10,7 +10,8 @@ close all
 clc
 
 % % Carregando a imagem
-I = imread('img1.jpg');
+I = imread('img4.jpg');
+figure, imshow(I), title('Imagem original');
 
 % BINARIZAÇÃO
 % Binariza a imagem para ser usada mais pra frente e tenta preencher alguns
