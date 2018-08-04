@@ -62,6 +62,24 @@ rotulada = bwlabel(croppedImage);
 
 % E contar quantas regioes foram obtidas
 qtd_regioes = max(max(rotulada));
+dados = regionprops(croppedImage,'Area','Centroid','Perimeter');
+
+tam_fonte = 12;
+circularidade = 1:2;
+[B,L] = bwboundaries(croppedImage,'noholes');
+figure, imshow(croppedImage), title('');
+hold on
+for k = 1 : qtd_regioes
+    boundary = B{k};
+    plot(boundary(:,2), boundary(:,1), 'b', 'LineWidth', 2)
+    circularidade(k) = (4*3.14*(dados(k).Area))/((dados(k).Perimeter)^2);
+    pos_Centroid = dados(k).Centroid;
+    text(pos_Centroid(1), pos_Centroid(2), num2str((circularidade(k))), 'FontSize', tam_fonte, 'FontWeight', 'Bold','Color', 'Red');
+end
+
+% if (circularidade(2) > circularidade(1))
+%     fprintf('GOAL!');
+% end
 
 
 
