@@ -57,3 +57,11 @@ figure, imshow(bw_filled);
 croppedImage = imcrop(bw_filled);
 figure, imshow(croppedImage);
 
+% Iremos rotular a imagem cortada com o bwlabel
+rotulada = bwlabel(croppedImage);
+
+% E contar quantas regioes foram obtidas
+qtd_regioes = max(max(rotulada));
+
+
+
