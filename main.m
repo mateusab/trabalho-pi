@@ -69,8 +69,8 @@ qtd_regioes = max(max(rotulada));
 % circularidade
 
 if (qtd_regioes == 2)
-    fprintf('duas regioes');
-    dados = regionprops(croppedImage,'Area','Centroid','Perimeter');
+%     fprintf('duas regioes');
+    dados = regionprops(croppedImage,'Area','Centroid','Perimeter','PixelList');
     tam_fonte = 12;
     circularidade = 1:2;
     [B,L] = bwboundaries(croppedImage,'noholes');
@@ -81,10 +81,18 @@ if (qtd_regioes == 2)
         plot(boundary(:,2), boundary(:,1), 'b', 'LineWidth', 2)
         circularidade(k) = (4*3.14*(dados(k).Area))/((dados(k).Perimeter)^2);
         pos_Centroid = dados(k).Centroid;
-        text(pos_Centroid(1), pos_Centroid(2), num2str((circularidade(k))), 'FontSize', tam_fonte, 'FontWeight', 'Bold','Color', 'Red');
+        text(pos_Centroid(1), pos_Centroid(2), num2str(circularidade(k)), 'FontSize', tam_fonte, 'FontWeight', 'Bold','Color', 'Red');
     end
-
-    if (circularidade(2) > circularidade(1))
+    
+    if (dados(1).Centroid(2) > dados(2).Centroid(2))
+        objeto_por_cima = circularidade(2);
+        objeto_por_baixo = circularidade(1);
+    else
+        objeto_por_cima = circularidade(1);
+        objeto_por_baixo = circularidade(2);
+    end
+    
+        if (objeto_por_cima > objeto_por_baixo)
         fprintf('GOAL!');
     else
         fprintf('NOT GOAL!');
@@ -97,5 +105,5 @@ end
 % foi gol
 
 if (qtd_regioes == 1)
-    fprintf('Possui apenas uma região!');
+%     fprintf('Possui apenas uma região!');
 end
