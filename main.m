@@ -77,9 +77,9 @@ for k = 1 : qtd_regioes
     text(pos_Centroid(1), pos_Centroid(2), num2str((circularidade(k))), 'FontSize', tam_fonte, 'FontWeight', 'Bold','Color', 'Red');
 end
 
-% if (circularidade(2) > circularidade(1))
-%     fprintf('GOAL!');
-% end
+if (circularidade(2) > circularidade(1))
+    fprintf('GOAL!');
+end
 
 
 
