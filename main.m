@@ -10,7 +10,7 @@ close all
 clc
 
 % % Carregando a imagem
-I = imread('img1.jpg');
+I = imread('teste.png');
 figure, imshow(I), title('Imagem original');
 
 % BINARIZAÇÃO
@@ -105,5 +105,19 @@ end
 % foi gol
 
 if (qtd_regioes == 1)
-%     fprintf('Possui apenas uma região!');
+     fprintf('Possui apenas uma região!');
+     se = strel('sphere',10);
+     img_erodida = imerode(croppedImage,se);
+     figure, imshow(img_erodida), title('Imagem com erosão aplicada');
+     
+     rotulada_erodida = bwlabel(img_erodida);
+     qtd_regioes_atual = max(max(rotulada_erodida));
+     
+     if (qtd_regioes_atual == 1)
+         fprintf('NOT GOAL!');
+     else
+         fprintf('GOAL!');
+     end
+     
+     
 end
