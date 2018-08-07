@@ -10,7 +10,7 @@ close all
 clc
 
 % % Carregando a imagem
-I = imread('teste.png');
+I = imread('img5.png');
 figure, imshow(I), title('Imagem original');
 
 % BINARIZAÇÃO
@@ -105,19 +105,44 @@ end
 % foi gol
 
 if (qtd_regioes == 1)
-     fprintf('Possui apenas uma região!');
-     se = strel('sphere',10);
-     img_erodida = imerode(croppedImage,se);
-     figure, imshow(img_erodida), title('Imagem com erosão aplicada');
-     
-     rotulada_erodida = bwlabel(img_erodida);
-     qtd_regioes_atual = max(max(rotulada_erodida));
-     
-     if (qtd_regioes_atual == 1)
-         fprintf('NOT GOAL!');
-     else
-         fprintf('GOAL!');
+    fprintf('Possui apenas uma região!');
+    se = strel('sphere',10);
+    img_erodida = imerode(croppedImage,se);
+    figure, imshow(img_erodida), title('Imagem com erosão aplicada');
+    tam_fonte = 12;
+    rotulada_erodida = bwlabel(img_erodida);
+    qtd_regioes_atual = max(max(rotulada_erodida));
+    
+    if (qtd_regioes_atual == 1)
+            fprintf('NOT GOAL!');
+     else if (qtd_regioes_atual == 2)
+%             fprintf('ENTROU, 2 REGIOES');
+            dados = regionprops(img_erodida,'Area','Centroid','Perimeter','PixelList');
+            [B,L] = bwboundaries(img_erodida,'noholes');
+            circularidade = 1:2;
+            figure, imshow(img_erodida), title('');
+            hold on
+            for k = 1 : qtd_regioes_atual
+                boundary = B{k};
+                plot(boundary(:,2), boundary(:,1), 'b', 'LineWidth', 2)
+                circularidade(k) = (4*3.14*(dados(k).Area))/((dados(k).Perimeter)^2);
+                pos_Centroid = dados(k).Centroid;
+                text(pos_Centroid(1), pos_Centroid(2), num2str(k), 'FontSize', tam_fonte, 'FontWeight', 'Bold','Color', 'Red');
+            end
+           
+            if (dados(1).Centroid(2) > dados(2).Centroid(2))
+                objeto_por_cima = circularidade(2);
+                objeto_por_baixo = circularidade(1);
+            else
+                objeto_por_cima = circularidade(1);
+                objeto_por_baixo = circularidade(2);
+            end
+    
+            if (objeto_por_cima > objeto_por_baixo)
+                fprintf('GOAL!');
+            else
+                fprintf('NOT GOAL!');
+            end
+         end
      end
-     
-     
 end
