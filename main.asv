@@ -109,9 +109,9 @@ end
 % foi gol
 
 % Portanto, se tiver apenas uma região, iremos aplicar uma erosão em cima
-% da imagem para ver se conseguimos separar a bola da linha
+% da imagem para ver se conseguimos sepa
 if (qtd_regioes == 1)
-%     fprintf('Possui apenas uma região!');
+    fprintf('Possui apenas uma região!');
     se = strel('sphere',10);
     img_erodida = imerode(croppedImage,se);
     figure, imshow(img_erodida), title('Imagem com erosão aplicada');
@@ -119,16 +119,10 @@ if (qtd_regioes == 1)
     rotulada_erodida = bwlabel(img_erodida);
     qtd_regioes_atual = max(max(rotulada_erodida));
     
-% Após a erosão iremos analisar novamente a quantidade de regiões da
-% imagem, se for um, significa que não foi gol, pois a bola não se
-% separou da linha
-
     if (qtd_regioes_atual == 1)
-            msg = msgbox('GOL NÃO VÁLIDO!');
+            fprintf('NOT GOAL!');
      else if (qtd_regioes_atual == 2)
-% Se for dois, significa que a bola se separou da linha, mas
-% novamente precisamos analisar a circularidade dos objetos
-% fprintf('ENTROU, 2 REGIOES');
+%             fprintf('ENTROU, 2 REGIOES');
             dados = regionprops(img_erodida,'Area','Centroid','Perimeter','PixelList');
             [B,L] = bwboundaries(img_erodida,'noholes');
             circularidade = 1:2;
