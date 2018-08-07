@@ -10,7 +10,7 @@ close all
 clc
 
 % % Carregando a imagem
-I = imread('img5.png');
+I = imread('img1.jpg');
 figure, imshow(I), title('Imagem original');
 
 % BINARIZAÇÃO
@@ -116,6 +116,8 @@ if (qtd_regioes == 1)
     img_erodida = imerode(croppedImage,se);
     figure, imshow(img_erodida), title('Imagem com erosão aplicada');
     tam_fonte = 12;
+    img_erodida = imfill(img_erodida,'holes');
+    figure, imshow(img_erodida), title('Imagem erodida com imfill');
     rotulada_erodida = bwlabel(img_erodida);
     qtd_regioes_atual = max(max(rotulada_erodida));
     
